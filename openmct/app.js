@@ -18,7 +18,7 @@
         request = require('request');
 
     // Defaults
-    options.port = options.port || options.p || 8080;
+    options.port = options.port || options.p || 8888;
     options.directory = options.directory || options.D || '.';
     ['include', 'exclude', 'i', 'x'].forEach(function (opt) {
         options[opt] = options[opt] || [];
