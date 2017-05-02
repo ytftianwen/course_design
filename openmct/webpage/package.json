@@ -9,11 +9,16 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "css-loader": "^0.26.4",
     "echarts": "^3.4.0",
+    "element-ui": "^1.2.9",
+    "file-loader": "^0.10.1",
+    "html-loader": "^0.4.5",
     "less": "^2.7.2",
     "less-loader": "^3.0.0",
     "vue": "^2.2.2",
-    "vue-router": "^2.2.0"
+    "vue-router": "^2.2.0",
+    "vue-swiper": "^0.5.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",

@@ -1,0 +1,13 @@
+<div class="sidebar">
+  <ul>
+    <li v-for="(item, index) in sidebarList"
+        @click="pageTo(index)">
+      <router-link
+        :class="{'currentRouter': index === currentIndex}"
+        :to="item.path"
+        v-text="item.text"
+      ></router-link>
+    </li>
+  </ul>
+</div>
+

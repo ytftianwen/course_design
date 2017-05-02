@@ -1,0 +1,54 @@
+<section class="config-content">
+  <div class="config-item item-area">
+    <h4>选择地区</h4>
+    <div class="area-select">
+      <el-select v-model="selectedProvince" placeholder="请选择">
+        <el-option
+          v-for="item in provinces"
+          :key="item.name"
+          :label="item.name"
+          :value="item.name">
+        </el-option>
+      </el-select>
+      <span class="province-span">省/市</span>
+      <el-select v-model="selectedCity" placeholder="请选择">
+        <el-option
+          v-for="city in currentCities"
+          :key="city.name"
+          :label="city.name"
+          :value="city.name">
+        </el-option>
+      </el-select>
+      <span class="city-span">市</span>
+      <el-select v-model="selectedArea" placeholder="请选择">
+        <el-option
+          v-for="area in currentArea"
+          :key="area"
+          :label="area"
+          :value="area">
+        </el-option>
+      </el-select>
+      <span>区</span>
+    </div>
+  </div>
+  <div class="config-item item-type">
+    <h4>灾害类型</h4>
+    <div class="disaster-list">
+      <ul>
+        <li v-for="type in disasterTypes">
+          <el-radio class="disasterType" v-model="chooseType" :label="type.value">{{type.name}}</el-radio>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="config-item item-params">
+    <h4>参数配置</h4>
+    <div>
+      <el-form :label-position="right" label-width="120px" :model="configParams">
+        <el-form-item v-for="param in configParams" :label="param">
+          <el-input v-model="configResult[param]"></el-input>
+        </el-form-item>
+      </el-form>
+    </div>
+  </div>
+</section>

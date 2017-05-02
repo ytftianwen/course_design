@@ -1,12 +1,20 @@
 /**
  * Created by yangtaofeng on 2017/3/17.
  */
+import template from './view.html'
+import style from './style.css'
 import echarts from 'echarts'
+import swiper from './swiper/index'
 import 'echarts/lib/chart/map'
 import chinaJson from '../../commons/china'
 import {option, address} from './model'
 import {randomData, dynamicData, dynamicOption} from './dynamicChart'
 export default {
+  template,
+  style,
+  components: {
+    swiper
+  },
   name: 'map',
   data () {
     return {

@@ -1,0 +1,11 @@
+<div>
+  <ul class="swiper-box">
+    <li v-if="showIndex === index"
+        v-for="(imgUrl, index) in imgs"
+        :style="imgUrl.style"
+    >
+      <img  :src="imgUrl.url">
+    </li>
+  </ul>
+</div>
+

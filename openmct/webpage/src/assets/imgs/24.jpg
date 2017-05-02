@@ -1,0 +1,7 @@
+import os
+filenames = os.listdir(os.getcwd())
+for name in filenames:
+  print(name)
+for num in range(0,len(filenames)):
+    os.rename(filenames[num],str(num)+'.jpg')
+  
