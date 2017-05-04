@@ -3,8 +3,6 @@
  */
 const Sequelize = require('sequelize');
 const dbConfig = require('./dbConfig');
-const tables = require('./tables')
-// const field = require('./autoCreatField')
 let sequelize = new Sequelize(
   dbConfig.dbName,
   dbConfig.dbUser,
@@ -13,7 +11,7 @@ let sequelize = new Sequelize(
     host: dbConfig.dbHost,
     dialect: dbConfig.dbType
   });
-let seqCommon = function (tableName,params) {
+let seqCommon = function (tableName) {
   let param = {
     id: {
       type: Sequelize.INTEGER,
@@ -22,18 +20,8 @@ let seqCommon = function (tableName,params) {
       unique: true
     }
   }
-  params.forEach(function (item) {
-    console.log('表名：'+tableName+'>>>>>'+item.key)
-    param[item.key]= {
-      type:Sequelize.INTEGER,
-      field: item.key
-    }
-  })
   let temp = sequelize.define(tableName, param)
-  temp.sync({force: true})
+  temp.sync({force: false})
   return temp
 }
-tables.forEach(function (item) {
-  seqCommon(item.value, item.params)
-})
 module.exports = seqCommon;

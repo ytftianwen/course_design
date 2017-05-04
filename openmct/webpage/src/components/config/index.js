@@ -5,6 +5,7 @@ import template from './view.html'
 import style from './style.css'
 import provinces from '../../commons/provinces'
 import disasterTypes from './data'
+import httpModel from './httpModel'
 export default {
   template,
   style,
@@ -41,11 +42,32 @@ export default {
       this.selectedArea = this.currentArea[0]
     },
     'chooseType': function () {
-      console.log(this.chooseType)
-      let obj = this.disasterTypes.find(item=>{
+      let obj = this.disasterTypes.find(item => {
         return this.chooseType === item.value
       })
       this.configParams = obj.params
+    }
+  },
+  methods: {
+    submitConfig(){
+      this.configResult['province'] = this.selectedProvince
+      this.configResult['city'] = this.selectedCity
+      this.configResult['area'] = this.selectedArea
+      let obj = this.disasterTypes.find(item => {
+        return item.value === this.chooseType
+      })
+      this.configResult['type'] = {
+        value: this.chooseType,
+        name: obj.name
+      }
+      console.log('***', JSON.stringify(this.configResult, null, 2))
+      httpModel.subConfig(this.configResult, this.chooseType)
+        .then(res => {
+          console.log('***', res)
+        })
+        .catch(err => {
+          console.log('&&&&', err)
+        })
     }
   }
 }

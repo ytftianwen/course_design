@@ -9,7 +9,7 @@ const tables = require('./db/commons/tables') // 数据库的表名数组
 app.use(cors()) // 允许跨域
 
 tables.forEach(function (item) {
-  app.use('/api', apiCommon(item))
+  app.use('/api', apiCommon(item.value))
 })
 
 var server = app.listen(8899, function () {

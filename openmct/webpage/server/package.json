@@ -1,0 +1,21 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "server"
+  ],
+  "author": "ytftianwen",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.3",
+    "express": "^4.15.2",
+    "mysql": "^2.13.0",
+    "nodemon": "^1.11.0",
+    "sequelize": "^3.30.4"
+  }
+}

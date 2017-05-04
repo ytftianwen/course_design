@@ -19,7 +19,7 @@ let configData = {
       key: 'toSound'
     }, {
       name:'温度',
-      key: 'toSound'
+      key: 'temperature'
     },{
       name:'深井流体',
       key: 'deepFluid'

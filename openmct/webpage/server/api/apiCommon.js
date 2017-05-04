@@ -16,7 +16,7 @@ let routerFn = function (tableName) {
       res.json({data:data})
     })
   })
-  router.post('/addUser', jsonParser, (req, res) => {
+  router.post('/'+ tableName+ '/add/config', jsonParser, (req, res) => {
     // res.header('Access-Control-Origin', '*');
     res.json({age:22})
   })

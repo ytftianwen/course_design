@@ -5,6 +5,7 @@ import template from './view.html'
 import style from './style.css'
 import echart from 'echarts'
 import option from './model'
+import httpModel from './httpModel'
 export default {
   template,
   style,
@@ -26,6 +27,7 @@ export default {
       waterChart.setOption(option)
     },
     init(){
+      httpModel.getParams()
       this.drawLine()
     }
   },
