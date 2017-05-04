@@ -1,4 +1,7 @@
 /**
+ * Created by ytftianwen on 2017/5/4.
+ */
+/**
  * Created by ytftianwen on 2017/5/2.
  */
 let configData = {
@@ -218,4 +221,4 @@ let configData = {
   }]
 
 }
-export default configData
+module.exports = configData

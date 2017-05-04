@@ -19,7 +19,8 @@ export default {
       disasterTypes: disasterTypes.type,
       chooseType: 'earthquake',
       configParams: disasterTypes.type[0].params,
-      configResult: {}
+      configResult: {},
+      fileList: []
     }
   },
   watch: {

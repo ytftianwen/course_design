@@ -6,7 +6,10 @@ import 'element-ui/lib/theme-default/index.css'
 import App from './App'
 import router from './router'
 
+import priUI from '../components/register'
+
 Vue.use(ElementUi)
+Vue.use(priUI)
 Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({

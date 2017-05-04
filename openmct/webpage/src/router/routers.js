@@ -6,6 +6,6 @@ let routers = [{
   text: '预警详情'
 },{
   path: '/config',
-  text: '配置'
+  text: '参数配置'
 }]
 export default routers
