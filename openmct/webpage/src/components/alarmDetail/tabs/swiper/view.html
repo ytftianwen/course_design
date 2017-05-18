@@ -1,0 +1,15 @@
+<section class="swiper-content">
+  <div class="swiper-imgs">
+    <ul class="swiper-box">
+      <li v-show="showIndex === index"
+          v-for="(img, index) in imgs"
+          :key="index"
+      >
+        <img :src="img.url">
+      </li>
+    </ul>
+  </div>
+
+</section>
+
+

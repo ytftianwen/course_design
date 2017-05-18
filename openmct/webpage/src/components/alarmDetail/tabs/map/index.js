@@ -4,27 +4,25 @@
 import template from './view.html'
 import style from './style.css'
 import echarts from 'echarts'
-import swiper from './swiper/index'
 import 'echarts/lib/chart/map'
-import chinaJson from '../../commons/china'
+import chinaJson from '../../../../commons/china'
 import {option, address} from './model'
 import {randomData, dynamicData, dynamicOption} from './dynamicChart'
 export default {
   template,
   style,
   components: {
-    swiper
   },
   name: 'map',
   data () {
     return {
-      detailData: {
+      detailData: [{
         address: '北京',
         time: '2017.03.16 09:12:53',
         type: '沙尘暴',
         grade: '危急',
         description: '北京地区发生强大沙尘暴'
-      },
+      }],
       lineChartOption: dynamicOption,
       selectedAddress: 0,
       address: address,
@@ -38,14 +36,14 @@ export default {
       echarts.registerMap('china', chinaJson)
       myChart.setOption(option)
       myChart.on('click', (params) => {
-        this.detailData.address = params.name
-        this.detailData.type = '地震'
-        this.detailData.time = this.getNowTime()
-        this.detailData.description = `${params.name}发生灾害，${params.seriesName}`
+        this.detailData[0].address = params.name
+        this.detailData[0].type = '地震'
+        this.detailData[0].time = this.getNowTime()
+        this.detailData[0].description = `${params.name}发生灾害，${params.seriesName}`
         if (params.color === 'red') {
-          this.detailData.grade = '危急'
+          this.detailData[0].grade = '危急'
         } else {
-          this.detailData.grade = '中危'
+          this.detailData[0].grade = '中危'
         }
         this.lineChartOption.title.text = `地区：${params.name}，竖轴：灾害类型，横轴：时间`
         this.drawLineChart()

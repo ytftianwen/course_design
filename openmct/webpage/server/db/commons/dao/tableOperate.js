@@ -1,10 +1,10 @@
 /**
  * Created by ytftianwen on 2017/5/4.
  */
-const seqCommon = require('./sequelizeModel')
+const seqCommon = require('../sequelizeModel')
 class TableOperate {
   addField(tableName, params) { //添加字段
-    let seqModel = seqCommon(tableName)
+    let seqModel = seqCommon(tableName, params)
     return seqModel.create(params)
   }
 
@@ -19,13 +19,18 @@ class TableOperate {
     let seqModel = seqCommon(tableName)
     return seqModel.findAll()
   }
-
   queryById(tableName, id) { // 通过id查询
     let seqModel = seqCommon(tableName)
     return seqModel.findAll({
       where: {
         id: id
       }
+    })
+  }
+  queryByLimit(tableName, limit) { // 通过条件查询
+    let seqModel = seqCommon(tableName)
+    return seqModel.findAll({
+      where: limit
     })
   }
 }

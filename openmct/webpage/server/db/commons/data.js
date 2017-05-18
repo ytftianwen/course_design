@@ -69,7 +69,7 @@ let configData = {
       key: 'earthPressure'
     }, {
       name:'水位及雨量',
-      key: 'waterLevel '
+      key: 'waterLevel'
     }],
     paramsAfter:[]
   }, {

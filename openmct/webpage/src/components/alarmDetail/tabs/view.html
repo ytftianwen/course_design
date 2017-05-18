@@ -1,0 +1,14 @@
+<section class="tabs-content">
+  <div class="tabs-type">
+    <el-button
+      size="small"
+      :key="index"
+      v-for="(item, index) in btnTabs"
+      @click="currentIndex = index"
+      :class="{'activeBtn':currentIndex === index}"
+    >{{item}}</el-button>
+  </div>
+  <view-map v-if="currentIndex === 0"></view-map>
+  <swiper v-if="currentIndex === 1"></swiper>
+  <line-chart v-if="currentIndex === 2"></line-chart>
+</section>

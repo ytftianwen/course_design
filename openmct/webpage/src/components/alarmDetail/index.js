@@ -3,11 +3,13 @@
  */
 import template from './view.html'
 import style from './style.css'
-import lineChart from './lineChart/index'
+import selectType from './selectType/index'
+import viewTab from './tabs/index'
 export default {
   template,
   style,
   components:{
-    lineChart
+    selectType,
+    viewTab
   }
 }

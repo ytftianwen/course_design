@@ -7,7 +7,7 @@ Vue.use(VueResource)
 let baseDomain = 'http://127.0.0.1:8899/api'
 let http = {
   get(url, params = {}) {
-    return Vue.http.get(baseDomain + url, params)
+    return Vue.http.get(baseDomain + url, {params:params})
       .then((res) => {
         return res.body
       })

@@ -1,0 +1,31 @@
+<section>
+  <div class="config-item item-type">
+    <h4>灾害类型</h4>
+    <div class="disaster-list">
+      <ul>
+        <li v-for="type in disasterTypes">
+          <el-radio class="disasterType"
+                    v-model="chooseType"
+                    :label="type.value">
+            {{type.name}}
+          </el-radio>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="config-item item-table">
+    <div class="content-table">
+      <el-table
+        :data="tableData2"
+        style="width: 100%"
+        :row-class-name="tableRowClassName">
+        <el-table-column
+          v-for="item in tableHeader"
+          :prop="item.prop"
+          :label="item.label"
+          >
+        </el-table-column>
+      </el-table>
+    </div>
+  </div>
+</section>

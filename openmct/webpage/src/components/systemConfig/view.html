@@ -1,0 +1,69 @@
+<section class="system-config">
+  <div class="system-config-box">
+    <label class="item-label">灾害类型</label>
+    <input class="item-input"
+           type="text"
+           v-model="disasterType"
+    >
+  </div>
+  <div class="system-config-add">
+    <h4 class="add-title">影响因子</h4>
+    <div class="system-config-box"
+         v-for="(item, index) in plusList"
+         :key="index">
+      <label class="item-label">因子名称</label>
+      <label class="item-label item-label-param" v-text="item.name"></label>
+      <!--<input class="item-input" v-model="item.value" type="text">-->
+      <label class="item-label">上限值</label>
+      <span class="item-span" v-text="item.upperLimit"></span>
+      <label class="item-label">下限值</label>
+      <span class="item-span" v-text="item.floorLimit"></span>
+      <span class="item-label">
+        <img :src="successImg">
+      </span>
+    </div>
+    <div class="system-config-box" style="text-align: center">
+      <div class="add-icon-box">
+        <el-button type="text" @click="dialogVisible = true">
+           <span class="add-icon">
+          <img :src="plusIcon" alt="添加">
+        </span>
+        </el-button>
+      </div>
+    </div>
+  </div>
+  <div class="system-config-footer">
+    <el-button type="info" @click="subSystemConfig">提交系统配置</el-button>
+  </div>
+  <el-dialog
+    title="添加影响因子"
+    v-model="dialogVisible"
+    size="small"
+    :before-close="handleClose">
+    <div class="panel-item-box">
+      <label class="item-label">影响因子名称</label>
+      <input class="item-input"
+             type="text"
+             v-model="plusPanelParam.name"
+             placeholder="必须为中文">
+    </div>
+    <div class="panel-item-box">
+      <label class="item-label">因子参数上限值</label>
+      <input class="item-input"
+             type="text"
+             v-model="plusPanelParam.upperLimit"
+             placeholder="必须为数字">
+    </div>
+    <div class="panel-item-box">
+      <label class="item-label">因子参数下限值</label>
+      <input class="item-input"
+             type="text"
+             v-model="plusPanelParam.floorLimit"
+             placeholder="必须为数字">
+    </div>
+    <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="plusPanelConfirm">确 定</el-button>
+  </span>
+  </el-dialog>
+</section>

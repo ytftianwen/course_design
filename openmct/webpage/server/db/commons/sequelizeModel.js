@@ -2,7 +2,9 @@
  * Created by ytftianwen on 2017/5/4.
  */
 const Sequelize = require('sequelize');
-const dbConfig = require('./dbConfig');
+const dbConfig = require('./dao/dbConfig');
+const tableConfig = require('./dao/tableConfig')
+
 let sequelize = new Sequelize(
   dbConfig.dbName,
   dbConfig.dbUser,
@@ -20,8 +22,12 @@ let seqCommon = function (tableName) {
       unique: true
     }
   }
-  let temp = sequelize.define(tableName, param)
-  temp.sync({force: false})
-  return temp
+  tableConfig.tableField[tableName].forEach(item => {
+    let type = item.type === 'int' ? Sequelize.INTEGER : Sequelize.STRING
+    param[item.value] = {
+      type: type
+    }
+  })
+  return sequelize.define(tableName, param)
 }
 module.exports = seqCommon;

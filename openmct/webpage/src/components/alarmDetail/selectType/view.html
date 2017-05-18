@@ -1,0 +1,9 @@
+<section class="types-content">
+  <el-button
+    v-for="(item,index) in typesArr"
+    size="small"
+    :key="index"
+    :class="{'activeBtn':currentIndex === index}"
+    @click="switchType(index)"
+  >{{item.name}}</el-button>
+</section>

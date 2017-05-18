@@ -23,7 +23,15 @@ let Chart = {
         return 'id'
       },
       type: String
+    },
+    isCustomization:{
+      default: function () {
+        return false
+      },
+      type: Boolean
     }
+  },
+  created(){
   },
   data(){
     return {
@@ -32,7 +40,8 @@ let Chart = {
   },
   methods: {
     init(){
-      let domId = document.getElementById(this.id)
+      console.log('.....', this.options.key)
+      let domId = document.getElementById(this.randomId)
       let priChart = echart.init(domId)
 
       setInterval(() => {
