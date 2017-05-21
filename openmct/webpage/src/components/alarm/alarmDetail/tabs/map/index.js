@@ -5,7 +5,7 @@ import template from './view.html'
 import style from './style.css'
 import echarts from 'echarts'
 import 'echarts/lib/chart/map'
-import chinaJson from '../../../../commons/china'
+import chinaJson from '../../../../../commons/china'
 import {option, address} from './model'
 import {randomData, dynamicData, dynamicOption} from './dynamicChart'
 export default {

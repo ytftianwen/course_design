@@ -5,7 +5,6 @@ import * as types from '../mutations'
 const state = {
   alarmType: 'earthquake'
 }
-
 const getters = {
   getAlarmType: state => state.alarmType
 }

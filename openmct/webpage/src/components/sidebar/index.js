@@ -9,13 +9,9 @@ export default {
   style,
   data(){
     return {
-      sidebarList: routers,
-      currentIndex: 0
+      sidebarList: routers
     }
   },
   methods:{
-    pageTo(index){
-      this.currentIndex = index
-    }
   }
 }

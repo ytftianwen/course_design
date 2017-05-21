@@ -3,7 +3,7 @@
  */
 import template from './view.html'
 import style from './style.css'
-import provinces from '../../commons/provinces'
+import provinces from '../../../commons/provinces'
 import httpModel from './httpModel'
 export default {
   template,
@@ -60,7 +60,7 @@ export default {
         return item.value === this.chooseType
       })
       let configType = {
-        value: this.chooseType,
+        disasterLevel: this.chooseType,
         name: obj.name
       }
       let param = {
@@ -75,23 +75,23 @@ export default {
           console.log('&&&&', err)
         })
     },
-    switchVariable(belongLevel = 0){
-      httpModel.getVariables({belongLevel: belongLevel})
+    switchVariable(disasterLevel = 0){
+      httpModel.getVariables({disasterLevel: disasterLevel})
         .then(res => {
           this.configParams = res
           this.getLimit()
         })
     },
     getLimit() {
-      httpModel.getLimits({typeLevel: this.typeLevel})
+      httpModel.getLimits({variableLevel: this.typeLevel})
         .then(res => {
           this.factorList = []
-          this.configParams.forEach(item => {
+          this.configParams.forEach((item, index) => {
             let obj = res.find(o => {
-              return o.belongLevel === item.level
+              return o.disasterLevel === item.level
             })
             this.factorList.push({
-              val: '',
+              val: item.level,
               topLimit: obj.topLimit,
               floorLimit: obj.floorLimit
             })
@@ -106,7 +106,7 @@ export default {
       })
     }
   },
-  mounted(){
+  created(){
     this.init()
   }
 }

@@ -3,7 +3,7 @@
  */
 import template from './view.html'
 import style from './style.css'
-import typesData from '../../config/data'
+import typesData from '../../alarmConfig/data'
 export default {
   template,
   style,

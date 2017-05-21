@@ -15,11 +15,32 @@ let promise = new Promise(function (resolve, reject) {
       return
     }
     let $ = cheerio.load(body)
+    let thTemp = []
+    $('#news tr').find('th').each(function () {
+      thTemp.push($(this).text())
+    })
+    msg.header.push({
+      prop: 'level',
+      label: thTemp[0]
+    },{
+      prop: 'time',
+      label: thTemp[1]
+    },{
+      prop: 'longitude',
+      label: thTemp[2]
+    },{
+      prop: 'latitude',
+      label: thTemp[3]
+    },{
+      prop: 'depth',
+      label: thTemp[4]
+    },{
+      prop: 'location',
+      label: thTemp[5]
+    })
     $('#news tr').each(function () {
       let temp = []
-      $(this).find('th').each(function () {
-        msg.header.push($(this).text())
-      })
+
       $(this).find('td').each(function () {
         temp.push($(this).text())
       })
@@ -33,6 +54,7 @@ let promise = new Promise(function (resolve, reject) {
         markLevel: temp[0] >= 6
       })
     })
+    msg.body.splice(0,1)
     resolve(msg)
   })
 })

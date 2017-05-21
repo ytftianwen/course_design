@@ -1,8 +1,8 @@
 /**
  * Created by ytftianwen on 2017/5/4.
  */
-import http from '../../../../utils/http'
-import tableData from '../../../config/data'
+import http from '../../../../../utils/http'
+import tableData from '../../../alarmConfig/data'
 let url = {
   urlGetParams: '/line_chart_data'
 }

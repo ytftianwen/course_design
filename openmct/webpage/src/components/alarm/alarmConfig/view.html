@@ -1,6 +1,6 @@
 <section class="config-content">
   <div class="config-item item-area">
-    <h4>选择地区</h4>
+    <h4>灾害位置</h4>
     <div class="area-select">
       <el-select v-model="selectedProvince" placeholder="请选择">
         <el-option
@@ -31,6 +31,15 @@
       <span>区</span>
     </div>
   </div>
+  <div class="config-item">
+    <h4>灾害坐标</h4>
+    <div class="config-item-box">
+      <label>经度</label>
+      <input class="config-input"/>
+      <label>纬度</label>
+      <input class="config-input"/>
+    </div>
+  </div>
   <div class="config-item item-type">
     <h4>灾害类型</h4>
     <div class="disaster-list">
@@ -46,7 +55,7 @@
     <div>
       <div class="config-item-box" v-for="(param, index) in configParams" :key="index">
         <label v-text="param.name"></label>
-        <input v-model="factorList[index].val" class="config-input" type="text">
+        <input v-model="configResult[factorList[index].val]" class="config-input" type="text">
         <label>上限值</label>
         <input v-model="factorList[index].topLimit" class="config-input" type="text">
         <label>下限值</label>

@@ -1,9 +1,14 @@
 <div class="home-page">
   <h2 class="home-title">自然灾害预警</h2>
-  <div class="home">
-    <sidebar class="side-bar"></sidebar>
-    <div class="content">
-      <router-view></router-view>
-    </div>
-  </div>
+  <el-row :gutter="10"
+  >
+    <el-col :span="4">
+      <sidebar class="side-bar"></sidebar>
+    </el-col>
+    <el-col :span="20">
+      <div class="content">
+        <router-view></router-view>
+      </div>
+    </el-col>
+  </el-row>
 </div>

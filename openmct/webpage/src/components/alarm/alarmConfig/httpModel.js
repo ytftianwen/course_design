@@ -1,7 +1,7 @@
 /**
  * Created by ytftianwen on 2017/5/4.
  */
-import http from '../../utils/http'
+import http from '../../../utils/http'
 let url = {
   urlGetDisasterTypes: '/disaster_type/all',
   urlGetDisasterVariables: '/variable/all',
@@ -26,7 +26,7 @@ let httpModel = {
         return arr
       })
   },
-  getLimits(param = {typeLevel: 0}){
+  getLimits(param = {variableLevel: 0}){
     return http.get(url.urlGetDisasterLimits, param)
       .then(res => res.data)
   },

@@ -9,6 +9,9 @@ let routerFn = function (spiderType) {
     spiderEarthquake.then(function (data) {
       res.json({data: data})
     })
+      .catch(function (err) {
+        res.json({err: err})
+      })
   })
   return router
 }

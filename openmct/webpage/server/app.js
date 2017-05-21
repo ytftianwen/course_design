@@ -15,7 +15,7 @@ tableConfig.tables.forEach(function (item) {
 })
 
 spiderConfig.types.forEach(function (item) {
-  app.use('/spider', apiSpider(item))
+  app.use('/api/spider', apiSpider(item))
 })
 
 var server = app.listen(8899, function () {
