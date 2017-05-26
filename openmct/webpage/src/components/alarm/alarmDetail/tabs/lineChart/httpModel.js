@@ -4,11 +4,11 @@
 import http from '../../../../../utils/http'
 import tableData from '../../../alarmConfig/data'
 let url = {
-  urlGetParams: '/line_chart_data'
+  urlGetParams: '/line_chart'
 }
 let httpModel = {
-  getParams(tableName) { // 根据灾害类型获取数据
-    return http.get('/' + tableName + url.urlGetParams)
+  getParams() { // 根据灾害类型获取数据
+    return http.get(url.urlGetParams)
       .then(res => {
         let result = []
         let tempData = res.data.splice(0)

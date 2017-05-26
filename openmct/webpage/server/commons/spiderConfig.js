@@ -5,3 +5,4 @@ let spiderConfig = {
   types: ['earthquake']
 }
 module.exports = spiderConfig
+

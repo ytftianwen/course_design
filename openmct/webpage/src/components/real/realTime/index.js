@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     tableRowClassName(row, index) {
-      return row.level >= 6 ? 'alarmConfig-row' : '';
+      return row.level >= 6 ? 'alarm-row' : '';
     },
     getDisasterTypes(){
       httpModel.getDisasterTypes()

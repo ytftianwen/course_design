@@ -1,0 +1,45 @@
+<div class="disaster-content">
+  <div class="disaster-section disaster-map">
+    <div id="maps">
+      <div class="map-dom" style="width: 400px;height: 400px;" :id="randomId"></div>
+    </div>
+    <div class="swiper-table">
+      <h4>详情展示</h4>
+      <el-table
+        :data="detailData"
+        style="width: 100%">
+        <el-table-column
+          prop="address"
+          label="地点"
+          width="80"
+        >
+        </el-table-column>
+        <el-table-column
+          prop="time"
+          label="时间"
+          width="160"
+        >
+        </el-table-column>
+        <el-table-column
+          prop="type"
+          label="类型"
+          width="80"
+        >
+        </el-table-column>
+        <el-table-column
+          prop="grade"
+          label="等级"
+          width="80"
+        >
+        </el-table-column>
+        <el-table-column
+          prop="description"
+          label="详情"
+          width="160"
+        >
+        </el-table-column>
+      </el-table>
+
+    </div>
+  </div>
+</div>

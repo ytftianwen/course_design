@@ -2,7 +2,7 @@
   <div class="config-item item-area">
     <h4>灾害位置</h4>
     <div class="area-select">
-      <el-select v-model="selectedProvince" placeholder="请选择">
+      <el-select v-model="selectedLocation.selectedProvince" placeholder="请选择">
         <el-option
           v-for="item in provinces"
           :key="item.name"
@@ -11,7 +11,7 @@
         </el-option>
       </el-select>
       <span class="province-span">省/市</span>
-      <el-select v-model="selectedCity" placeholder="请选择">
+      <el-select v-model="selectedLocation.selectedCity" placeholder="请选择">
         <el-option
           v-for="city in currentCities"
           :key="city.name"
@@ -20,7 +20,7 @@
         </el-option>
       </el-select>
       <span class="city-span">市</span>
-      <el-select v-model="selectedArea" placeholder="请选择">
+      <el-select v-model="selectedLocation.selectedArea" placeholder="请选择">
         <el-option
           v-for="area in currentArea"
           :key="area"
@@ -35,9 +35,9 @@
     <h4>灾害坐标</h4>
     <div class="config-item-box">
       <label>经度</label>
-      <input class="config-input"/>
+      <el-input v-model="selectedLocation.longitude"></el-input>
       <label>纬度</label>
-      <input class="config-input"/>
+      <el-input v-model="selectedLocation.latitude"></el-input>
     </div>
   </div>
   <div class="config-item item-type">
@@ -55,26 +55,41 @@
     <div>
       <div class="config-item-box" v-for="(param, index) in configParams" :key="index">
         <label v-text="param.name"></label>
-        <input v-model="configResult[factorList[index].val]" class="config-input" type="text">
-        <label>上限值</label>
-        <input v-model="factorList[index].topLimit" class="config-input" type="text">
-        <label>下限值</label>
-        <input v-model="factorList[index].floorLimit" class="config-input" type="text">
-      </div>
-      <div class="config-item-box">
-        <label>上传云图资料</label>
-        <span class="config-upload">
-          <el-upload
-            class="upload-demo"
-            action="https://jsonplaceholder.typicode.com/posts/"
-            :file-list="fileList">
-          <el-button size="small" type="primary">点击上传</el-button>
-        </el-upload>
-        </span>
+        <el-input v-model="configParams[index].factorVal"></el-input>
+        <el-button
+          @click="editLimit(index)"
+          type="primary"
+          size="small"
+          style="margin-left: 10px"
+        >修改参数上下限</el-button>
       </div>
     </div>
   </div>
-  <div class="submit">
+  <div class="submit" style="padding-top: 10px">
     <el-button size="large" type="info" @click="submitConfig">提交配置</el-button>
   </div>
+  <el-dialog
+    title="修改上下限"
+    v-model="dialogVisible"
+    size="small"
+    :before-close="dialogClose">
+    <div class="panel-item-box">
+      <label class="item-label">因子参数上限值</label>
+      <input class="item-input"
+             type="text"
+             v-model="editLimitParam.topLimit"
+             placeholder="必须为数字">
+    </div>
+    <div class="panel-item-box">
+      <label class="item-label">因子参数下限值</label>
+      <input class="item-input"
+             type="text"
+             v-model="editLimitParam.floorLimit"
+             placeholder="必须为数字">
+    </div>
+    <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="editLimitConfirm">确 定</el-button>
+  </span>
+  </el-dialog>
 </section>

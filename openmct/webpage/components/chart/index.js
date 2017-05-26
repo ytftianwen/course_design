@@ -35,12 +35,11 @@ let Chart = {
   },
   data(){
     return {
-      randomId: 'chart' + Math.random()
+      randomId: 'chart-' + Math.random()
     }
   },
   methods: {
     init(){
-      console.log('.....', this.options.key)
       let domId = document.getElementById(this.randomId)
       let priChart = echart.init(domId)
 

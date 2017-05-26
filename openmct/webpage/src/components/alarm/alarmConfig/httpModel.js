@@ -5,7 +5,8 @@ import http from '../../../utils/http'
 let url = {
   urlGetDisasterTypes: '/disaster_type/all',
   urlGetDisasterVariables: '/variable/all',
-  urlGetDisasterLimits: '/scope_limit/all'
+  urlGetDisasterLimits: '/scope_limit/all',
+  urlPostConfig: '/alarm_config'
 }
 let httpModel = {
   getDisasterTypes(){
@@ -30,8 +31,8 @@ let httpModel = {
     return http.get(url.urlGetDisasterLimits, param)
       .then(res => res.data)
   },
-  subConfig(params, tableName){
-    return http.post('/' + tableName + url.urlSubConfig, params)
+  subConfig(params){
+    return http.post(url.urlPostConfig, params)
       .then(res => res)
   }
 }

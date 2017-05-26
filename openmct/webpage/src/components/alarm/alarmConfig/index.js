@@ -10,64 +10,72 @@ export default {
   style,
   data(){
     return {
-      selectedProvince: '北京',
       provinces: provinces,
       currentCities: provinces[0].city,
-      selectedCity: '北京',
       currentArea: provinces[0].city[0].area,
-      selectedArea: provinces[0].city[0].area[0],
+      selectedLocation:{
+        selectedProvince: '北京',
+        selectedCity: '北京',
+        selectedArea: provinces[0].city[0].area[0],
+        longitude: '',
+        latitude: ''
+      },
       disasterTypes: [],
       chooseType: '',
       configParams: [],
       configResult: {},
       fileList: [],
       factorList: [],
-      typeLevel: 0
+      factorParam:[],
+      disasterLevel: 0,
+      dialogVisible: false,
+      editLimitParam: {
+        topLimit: '',
+        floorLimit: ''
+      }
     }
   },
   watch: {
-    'selectedProvince': function () {
+    'selectedLocation.selectedProvince': function () {
       let obj = this.provinces.find(item => {
-        return item.name === this.selectedProvince
+        return item.name === this.selectedLocation.selectedProvince
       })
       this.currentCities = obj.city
-      this.selectedCity = this.currentCities[0].name
+      this.selectedLocation.selectedCity = this.currentCities[0].name
       this.currentArea = this.currentCities[0].area
-      this.selectedArea = this.currentArea[0]
+      this.selectedLocation.selectedArea = this.currentArea[0]
     },
-    'selectedCity': function () {
+    'selectedLocation.selectedCity': function () {
       let obj = this.currentCities.find(item => {
-        return this.selectedCity === item.name
+        return this.selectedLocation.selectedCity === item.name
       })
       this.currentArea = obj.area
-      this.selectedArea = this.currentArea[0]
+      this.selectedLocation.selectedArea = this.currentArea[0]
     },
     'chooseType' () {
       let obj = this.disasterTypes.find((item, index) => {
-        if(item.value === this.chooseType) this.typeLevel = index
+        if(item.value === this.chooseType) this.disasterLevel = index
         return item.value === this.chooseType
       })
+      this.disasterLevel = obj.level
       this.switchVariable(obj.level)
     }
   },
   methods: {
+    editLimit(index){
+      this.dialogVisible = true
+      let obj = this.factorList[index]
+      this.editLimitParam.topLimit = obj.topLimit
+      this.editLimitParam.floorLimit = obj.floorLimit
+      console.log('disasterLevel:', this.disasterLevel)
+    },
+    dialogClose(){},
+    editLimitConfirm(){},
     submitConfig(){
-      console.log('7777', JSON.stringify(this.configResult, null, 2))
-      this.configResult['province'] = this.selectedProvince
-      this.configResult['city'] = this.selectedCity
-      this.configResult['area'] = this.selectedArea
-      let obj = this.disasterTypes.find(item => {
-        return item.value === this.chooseType
-      })
-      let configType = {
-        disasterLevel: this.chooseType,
-        name: obj.name
-      }
-      let param = {
-        params: this.configResult,
-        configType: configType
-      }
-      httpModel.subConfig(param, this.chooseType)
+      this.configResult['disasterLevel'] = this.disasterLevel
+      this.configResult['variable'] = this.configParams
+      this.configResult['location'] = this.selectedLocation
+      httpModel.subConfig(this.configResult)
         .then(res => {
           console.log('***', res)
         })
@@ -83,12 +91,15 @@ export default {
         })
     },
     getLimit() {
-      httpModel.getLimits({variableLevel: this.typeLevel})
+      httpModel.getLimits({variableLevel: this.disasterLevel})
         .then(res => {
           this.factorList = []
           this.configParams.forEach((item, index) => {
+            item.factorVal = ''
+            item.variableLevel = item.level
+            delete item.level
             let obj = res.find(o => {
-              return o.disasterLevel === item.level
+              return o.disasterLevel === item.variableLevel
             })
             this.factorList.push({
               val: item.level,
@@ -96,7 +107,6 @@ export default {
               floorLimit: obj.floorLimit
             })
           })
-          console.log('this.factorList;;;', JSON.stringify(this.factorList, null, 2))
         })
     },
     init(){

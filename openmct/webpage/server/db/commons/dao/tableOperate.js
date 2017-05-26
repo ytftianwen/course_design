@@ -4,7 +4,9 @@
 const seqCommon = require('../sequelizeModel')
 class TableOperate {
   addField(tableName, params) { //添加字段
-    let seqModel = seqCommon(tableName, params)
+    console.log(tableName)
+    console.log(params)
+    let seqModel = seqCommon(tableName)
     return seqModel.create(params)
   }
 
@@ -18,14 +20,6 @@ class TableOperate {
   queryAll(tableName) { // 查询所有
     let seqModel = seqCommon(tableName)
     return seqModel.findAll()
-  }
-  queryById(tableName, id) { // 通过id查询
-    let seqModel = seqCommon(tableName)
-    return seqModel.findAll({
-      where: {
-        id: id
-      }
-    })
   }
   queryByLimit(tableName, limit) { // 通过条件查询
     let seqModel = seqCommon(tableName)

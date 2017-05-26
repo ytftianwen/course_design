@@ -1,14 +1,19 @@
 <section class="tabs-content">
-  <div class="tabs-type">
-    <el-button
-      size="small"
-      :key="index"
-      v-for="(item, index) in btnTabs"
-      @click="currentIndex = index"
-      :class="{'activeBtn':currentIndex === index}"
-    >{{item}}</el-button>
-  </div>
-  <view-map v-if="currentIndex === 0"></view-map>
-  <swiper v-if="currentIndex === 1"></swiper>
-  <line-chart v-if="currentIndex === 2"></line-chart>
+  <el-tabs v-model="activeDisasterPanel" type="card" @tab-click="switchDisaster">
+    <el-tab-pane
+      v-for="item in disasterPanel"
+      :key="item.name"
+      :label="item.label"
+      :name="item.name">
+      <el-tabs v-model="activeModePanel" @tab-click="switchMode">
+        <el-tab-pane
+          v-for="item in modePanels"
+          :key="item.name"
+          :label="item.label"
+          :name="item.name">
+          <div :is="item.component"></div>
+        </el-tab-pane>
+      </el-tabs>
+    </el-tab-pane>
+  </el-tabs>
 </section>
