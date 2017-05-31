@@ -1,5 +1,7 @@
 <section class="tabs-content">
-  <el-tabs v-model="activeDisasterPanel" type="card" @tab-click="switchDisaster">
+  <el-tabs v-model="activeDisasterLevel"
+           type="card"
+           @tab-click="setDisasterLevel(activeDisasterLevel)">
     <el-tab-pane
       v-for="item in disasterPanel"
       :key="item.name"

@@ -7,40 +7,33 @@ let url = {
   urlGetParams: '/line_chart'
 }
 let httpModel = {
-  getParams() { // 根据灾害类型获取数据
-    return http.get(url.urlGetParams)
+  getParams(params) { // 根据灾害类型获取数据
+    return http.get(url.urlGetParams, params)
       .then(res => {
         let result = []
-        let tempData = res.data.splice(0)
-        tempData.forEach(item => {
-          delete item.id
-          delete item.createdAt
-          delete item.updatedAt
+        let variableLevelArr = []
+        res.data.forEach(item => {
+          variableLevelArr.push(item.variableLevel)
         })
-        let tempKeys = tempData[0] || {}
-        Object.keys(tempKeys).forEach(val => {
+        variableLevelArr = [...new Set(variableLevelArr)]
+        variableLevelArr.forEach(val => {
+          let realData = []
+          let title = ''
+          let topLimit = []
+          let floorLimit = []
+          res.data.forEach(item => {
+            if (item.variableLevel === val) {
+              realData.push(item.factor)
+              title = item.title
+              topLimit.push(item.topLimit)
+              floorLimit.push(item.floorLimit)
+            }
+          })
           result.push({
-            [val]: {
-              name: '',
-              values: [],
-              key: val
-            }
-          })
-        })
-        let typeObj = tableData.type.find(item => {
-          return item.value === tableName
-        })
-        typeObj.params.forEach(item => {
-          result.forEach(val => {
-            if (Object.keys(val)[0] === item.key){
-              val[item.key]['name'] = item.name
-            }
-          })
-        })
-        result.forEach(item => {
-          let key = Object.keys(item)[0]
-          tempData.forEach(obj => {
-            item[key].values.push(obj[key])
+            title: title,
+            realData: realData,
+            topLimit: topLimit,
+            floorLimit: floorLimit
           })
         })
         return result
@@ -48,26 +41,9 @@ let httpModel = {
   }
 }
 export default httpModel
-// result结构 =[
-//  {
-//    "rainFall": {
-//      "name": "",
-//      "values": [],
-//      "key": "rainFall"
-//    }
-//  },
-//    {
-//      "debrisSound": {
-//        "name": "",
-//        "values": [],
-//        "key": "debrisSound"
-//      }
-//    },
-//    {
-//      "debrisDisplacement": {
-//        "name": "",
-//        "values": [],
-//        "key": "debrisDisplacement"
-//      }
-//    }
-//  ]
+// result结构 =[{
+//   title: '位移量',
+//   realData: [300,230,400,350,430,520,340], //实际值
+//   topLimit: [800,800,800,800,800,800,800], //上限
+//   floorLimit: [300,300,300,300,300,300,300] //下限
+//  }]

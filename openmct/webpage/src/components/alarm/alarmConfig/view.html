@@ -57,7 +57,7 @@
         <label v-text="param.name"></label>
         <el-input v-model="configParams[index].factorVal"></el-input>
         <el-button
-          @click="editLimit(index)"
+          @click="editLimit(param.variableLevel, index)"
           type="primary"
           size="small"
           style="margin-left: 10px"
@@ -71,8 +71,7 @@
   <el-dialog
     title="修改上下限"
     v-model="dialogVisible"
-    size="small"
-    :before-close="dialogClose">
+    size="small">
     <div class="panel-item-box">
       <label class="item-label">因子参数上限值</label>
       <input class="item-input"

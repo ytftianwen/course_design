@@ -1,11 +1,13 @@
 /**
  * Created by ytftianwen on 2017/5/11.
  */
+import {mapActions} from 'vuex'
 import template from './view.html'
 import style from './style.css'
 import viewMap from './map/index'
 import lineChart from './lineChart/index'
 import swiper from './swiper/index'
+
 export default {
   template,
   style,
@@ -16,13 +18,13 @@ export default {
   },
   data(){
     return {
-      activeDisasterPanel: 'earthquake',
-      disasterPanel:[{
+      activeDisasterLevel: 0,
+      disasterPanel: [{
         label: '地震',
-        name: 'earthquake',
-      },{
+        name: '' + 0,
+      }, {
         label: '泥石流',
-        name: 'flood',
+        name: '' + 1,
       }],
       activeModePanel: 'map',
       modePanels: [{
@@ -41,7 +43,7 @@ export default {
     }
   },
   methods: {
-    switchDisaster(){},
+    ...mapActions(['setDisasterLevel']),
     switchMode(){
     }
   }

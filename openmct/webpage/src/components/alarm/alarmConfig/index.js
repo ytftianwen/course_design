@@ -57,20 +57,35 @@ export default {
         if(item.value === this.chooseType) this.disasterLevel = index
         return item.value === this.chooseType
       })
-      this.disasterLevel = obj.level
-      this.switchVariable(obj.level)
+      this.disasterLevel = obj.disasterLevel
+      this.switchVariable(obj.disasterLevel)
     }
   },
   methods: {
-    editLimit(index){
+    editLimit(variableLevel, index){
       this.dialogVisible = true
       let obj = this.factorList[index]
       this.editLimitParam.topLimit = obj.topLimit
       this.editLimitParam.floorLimit = obj.floorLimit
-      console.log('disasterLevel:', this.disasterLevel)
+      this.editLimitParam.variableLevel = variableLevel
+      this.editLimitParam.disasterLevel = this.disasterLevel
     },
-    dialogClose(){},
-    editLimitConfirm(){},
+    editLimitConfirm(){
+      httpModel.editLimit(this.editLimitParam)
+        .then(()=>{
+          this.$message({
+            message: `修改成功`,
+            type: 'success'
+          })
+          this.dialogVisible = false
+        })
+        .catch(()=>{
+          this.$message({
+            message: `修改失败,请稍后重试`,
+            type: 'warning'
+          })
+        })
+    },
     submitConfig(){
       this.configResult['disasterLevel'] = this.disasterLevel
       this.configResult['variable'] = this.configParams
@@ -91,18 +106,16 @@ export default {
         })
     },
     getLimit() {
-      httpModel.getLimits({variableLevel: this.disasterLevel})
+      httpModel.getLimits({disasterLevel: this.disasterLevel})
         .then(res => {
           this.factorList = []
-          this.configParams.forEach((item, index) => {
+          this.configParams.forEach(item => {
             item.factorVal = ''
-            item.variableLevel = item.level
-            delete item.level
             let obj = res.find(o => {
-              return o.disasterLevel === item.variableLevel
+              return o.variableLevel === item.variableLevel
             })
             this.factorList.push({
-              val: item.level,
+              val: item.variableLevel,
               topLimit: obj.topLimit,
               floorLimit: obj.floorLimit
             })

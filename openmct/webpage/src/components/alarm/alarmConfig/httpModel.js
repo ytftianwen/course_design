@@ -6,7 +6,8 @@ let url = {
   urlGetDisasterTypes: '/disaster_type/all',
   urlGetDisasterVariables: '/variable/all',
   urlGetDisasterLimits: '/scope_limit/all',
-  urlPostConfig: '/alarm_config'
+  urlPostConfig: '/alarm_config',
+  urlEditLimit: '/scope_limit/edit'
 }
 let httpModel = {
   getDisasterTypes(){
@@ -15,17 +16,7 @@ let httpModel = {
   },
   getVariables(param){
     return http.get(url.urlGetDisasterVariables, param)
-      .then(res => {
-        let arr = []
-        res.data.forEach(item => {
-          arr.push({
-            name: item.name,
-            key: item.value,
-            level: item.level
-          })
-        })
-        return arr
-      })
+      .then(res => res.data)
   },
   getLimits(param = {variableLevel: 0}){
     return http.get(url.urlGetDisasterLimits, param)
@@ -34,6 +25,10 @@ let httpModel = {
   subConfig(params){
     return http.post(url.urlPostConfig, params)
       .then(res => res)
+  },
+  editLimit(params){
+    return http.post(url.urlEditLimit, params)
+      .then(res => res.data)
   }
 }
 export default httpModel

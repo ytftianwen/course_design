@@ -3,19 +3,19 @@
  */
 import * as types from '../mutations'
 const state = {
-  alarmType: 'earthquake'
+  disasterLevel: '0'
 }
 const getters = {
-  getAlarmType: state => state.alarmType
+  getDisasterLevel: state => state.disasterLevel
 }
 const actions = {
-  setAlarmType({commit}, data){
+  setDisasterLevel({commit}, data){
     commit(types.ALARM_DETAIL_TYPE, data)
   }
 }
 const mutations = {
   [types.ALARM_DETAIL_TYPE](state, data){
-    state.alarmType = data
+    state.disasterLevel = data
   }
 }
 export default {

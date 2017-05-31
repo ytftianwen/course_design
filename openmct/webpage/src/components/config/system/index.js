@@ -4,7 +4,8 @@
 import template from './view.html'
 import style from './style.css'
 import httpModel from './httpModel'
-
+import pinyin from 'pinyin'
+console.log('00000..', pinyin('中文', {style: pinyin.STYLE_NORMAL}).join(''))
 export default {
   template,
   style,
@@ -53,13 +54,12 @@ export default {
       })
     },
     plusPanelConfirm(){
-      console.log(this.plusPanelParam)
       this.plusList.push({
         variable: this.plusPanelParam.name,
-        upperLimit: this.plusPanelParam.upperLimit,
-        floorLimit: this.plusPanelParam.floorLimit
+        topLimit: this.plusPanelParam.upperLimit,
+        floorLimit: this.plusPanelParam.floorLimit,
+        disasterLevel: this.resultParam.disasterLevel
       })
-
       this.$message({
         message: `灾害:${this.plusPanelParam.name} 添加成功`,
         type: 'success'
@@ -85,17 +85,20 @@ export default {
     },
     subSystemConfig(){
       if (this.plusList.length > 0 && this.disasterType !== '') {
-        this.resultParam = {
-          variableList: this.plusList,
-          type: this.disasterType
-        }
+        this.plusList.forEach((item, index)=>{
+          item.variableLevel = index
+        })
+        this.resultParam.variableList = this.plusList
+        this.resultParam.name = this.disasterType
+        this.resultParam.value = pinyin(this.resultParam.name, {style: pinyin.STYLE_NORMAL}).join('')
         this.resultParam = Object.assign(this.resultParam, this.checkMode)
+        console.log('...', JSON.stringify(this.resultParam, null, 2))
         httpModel.systemPost(this.resultParam)
           .then(res => {
             this.clearParam()
             this.clearInput()
             this.$message({
-              message: `添加成功`,
+              message: `添加成功:${res}`,
               type: 'success'
             });
           })
@@ -112,6 +115,17 @@ export default {
           type: 'warning'
         });
       }
+    },
+    init(){
+      httpModel.getDisasterTypesMaxLevel()
+        .then(res=>{
+          console.log('****', res)
+          this.resultParam.disasterLevel = res + 1
+          console.log('&&&', JSON.stringify(this.resultParam,null, 2))
+        })
     }
+  },
+  mounted(){
+    this.init()
   }
 }
